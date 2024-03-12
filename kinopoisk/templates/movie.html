@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Movie</title>
+</head>
+
+<style>
+    img {
+      max-width: 25%;
+      height: auto;
+    }
+  </style>
+  {% load static %}
+<body>
+    <h1>View Movie</h1>
+    <p>Title: {{ movie.title }}</p>
+    <p>Year: {{ movie.year }}</p>
+    <p>Description: {{ movie.description }}</p>
+    <p>Rating: {{ movie.rating }}</p>
+    <p>Genre: {{ genres }}</p>
+    <p class="img">Cover: {{ movie.cover }}</p>
+
+</body>
+<img src="{{image_url}}" alt="Movie Image">
+</html>
