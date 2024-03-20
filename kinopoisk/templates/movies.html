@@ -17,10 +17,47 @@
         .center {
             text-align: center;
         }
+        .form-container {
+            width: 25%; /* 1/4 of the screen width */
+        }
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .checkbox-group label {
+            margin-right: 10px;
+        }
+        .form-container form {
+        margin-bottom: 10px;
+    }
     </style>
     <title>List of Movies</title>
 </head>
 <body>
+    <div>
+    <form action="/movies/" method="GET">
+        <div class = "form-container">
+        <div class="checkbox-group">
+            {% for genre in genres %}
+                <label>
+                    <input type="checkbox" name="genres" value="{{ genre.genre }}" {% if genre.genre in request.GET.genres %} checked {% endif %}>{{ genre.genre }}
+                </label>
+            {% endfor %}
+        </div>
+        </div>
+        <br>
+        <input type="number" name="year" placeholder="Enter year" value="{{ request.GET.year }}">
+        <input type="float" name="rating" placeholder="Enter rating" value="{{ request.GET.rating }}">
+        <button type="submit">Filter</button>
+        
+    </form>
+    <div style="margin-top: 10px;"></div>
+    <form action="/movies/"> <button>Reset</button></form>
+
+    </div>
+   
+
+
     <h1>List of Movies</h1>
     <table>
         <tr>

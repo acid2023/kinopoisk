@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpRequest, HttpResponse, HttpResponseBadRequest, HttpResponseNotFound
+from django.http import HttpRequest, HttpResponse, HttpResponseBadRequest, HttpResponseNotFound, QueryDict
 from django.db.models import Q
 
 from kinopoisk.forms import MovieForm
@@ -24,6 +24,15 @@ def view_movie(request: HttpRequest, movie_id: int) -> HttpResponse:
     genres = ', '.join([a.genre for a in movie.genre.all()])
     image_url = movie.cover.url
     return render(request, 'movie.html', {'movie': movie, 'genres': genres, 'image_url': image_url})
+
+
+def get_request_body(request: HttpRequest) -> QueryDict | HttpResponse:
+    if request.method == 'GET':
+        return request.GET
+    elif request.method == 'POST':
+        return request.POST
+    else:
+        return HttpResponseBadRequest('Wrong request method')
 
 
 def get_filters_from_request(input_request: HttpRequest) -> dict[str, str | str | list[str] | None] | HttpResponse:
@@ -66,7 +75,7 @@ def get_filters_from_request(input_request: HttpRequest) -> dict[str, str | str 
 
 def view_movies(request: HttpRequest) -> HttpResponse:
     filters = get_filters_from_request(request)
-
+    genr = Genre.objects.all()
     if isinstance(filters, HttpResponse):
         return filters
     movies = Movie.objects.all()
@@ -82,7 +91,7 @@ def view_movies(request: HttpRequest) -> HttpResponse:
             movies = movies.filter(rating=value)
 
     content = [movie for movie in movies]
-    return render(request, 'movies.html', {'content': content})
+    return render(request, 'movies.html', {'content': content, 'genres': genr})
 
 
 def view_search(request: HttpRequest) -> HttpResponse:

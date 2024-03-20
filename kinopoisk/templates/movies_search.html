@@ -21,6 +21,14 @@
     <title>Search Results</title>
 </head>
 <body>
+
+    <form action="/movies/search/" method="GET">
+        <input type="text" name="search_field1" placeholder="Enter search term 1">
+        <input type="text" name="search_field2" placeholder="Enter search term 2">
+        <input type="text" name="search_field3" placeholder="Enter search term 3">
+        <button type="submit">Search</button>
+    </form>
+    
     <h1>Search Results</h1>
     <h1>search query: {{ search}}</h1>
     <table>

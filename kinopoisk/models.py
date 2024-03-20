@@ -10,7 +10,7 @@ class Genre(models.Model):
 
 class Movie(models.Model):
     title = models.CharField(max_length=512)
-    kinopoiskID = models.IntegerField()
+    kinopoiskID = models.IntegerField(unique=True)
     year = models.SmallIntegerField()
     description = models.TextField(null=True, blank=True)
     rating = models.FloatField()
