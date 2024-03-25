@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 75%;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th.title-column {
+            width: 30%; /* Set the width of the Title column */
+        }
+        .center {
+            text-align: center;
+        }
+    </style>
+    <title>Search Results</title>
+</head>
+<body>
+
+    <form action="/movies/search/" method="GET">
+        <input type="text" name="search_field1" placeholder="Enter search term 1">
+        <input type="text" name="search_field2" placeholder="Enter search term 2">
+        <input type="text" name="search_field3" placeholder="Enter search term 3">
+        <button type="submit">Search</button>
+    </form>
+    
+    <h1>Search Results</h1>
+    <h1>search query: {{ search}}</h1>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Kinopoisk ID</th>
+            <th class="title-column">Title</th>
+            <th class="title-column"></thclass>Genres</th>
+            <th> Description</th>
+            <th>Year</th>
+            <th>Rating</th>
+            <th>Link</th>
+        </tr>
+        {% for movie in content %}
+            <tr>
+                <td>{{ movie.id }}</td>
+                <td>{{ movie.kinopoiskID }}</td>
+                <td>{{ movie.title }}</td>
+                <td>{{ movie.get_genres }}</td>
+                <td>{{ movie.description }}</td>
+                <td>{{ movie.year }}</td>
+                <td class="center">{{ movie.rating }}</td>
+                <td><a href="/movies/{{ movie.id }}/">View</a></td>
+                
+            </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 75%;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th.title-column {
+            width: 30%; /* Set the width of the Title column */
+        }
+        .center {
+            text-align: center;
+        }
+        .form-container {
+            width: 25%; /* 1/4 of the screen width */
+        }
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .checkbox-group label {
+            margin-right: 10px;
+        }
+        .form-container form {
+        margin-bottom: 10px;
+    }
+    </style>
+    <title>List of Movies</title>
+</head>
+<body>
+    <div>
+    <form action="/movies/" method="GET">
+        <div class = "form-container">
+        <div class="checkbox-group">
+            {% for genre in genres %}
+                <label>
+                    <input type="checkbox" name="genres" value="{{ genre.genre }}" {% if genre.genre in request.GET.genres %} checked {% endif %}>{{ genre.genre }}
+                </label>
+            {% endfor %}
+        </div>
+        </div>
+        <br>
+        <input type="number" name="year" placeholder="Enter year" value="{{ request.GET.year }}">
+        <input type="float" name="rating" placeholder="Enter rating" value="{{ request.GET.rating }}">
+        <button type="submit">Filter</button>
+        
+    </form>
+    <div style="margin-top: 10px;"></div>
+    <form action="/movies/"> <button>Reset</button></form>
+
+    </div>
+   
+
+
+    <h1>List of Movies</h1>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Kinopoisk ID</th>
+            <th class="title-column">Title</th>
+            <th class="title-column"></thclass>Genres</th>
+            <th>Year</th>
+            <th>Rating</th>
+            <th>Link</th>
+        </tr>
+        {% for movie in content %}
+            <tr>
+                <td>{{ movie.id }}</td>
+                <td>{{ movie.kinopoiskID }}</td>
+                <td>{{ movie.title }}</td>
+                <td>{{ movie.get_genres }}</td>
+                <td>{{ movie.year }}</td>
+                <td class="center">{{ movie.rating }}</td>
+                <td><a href="/movies/{{ movie.id }}/">View</a></td>
+                
+            </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

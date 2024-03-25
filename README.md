@@ -18,3 +18,4 @@ views:
   - show movies with filtering - each movie in list has link to more detailed view (see below)
   - show individual movie
   - search movies title and description and view results as list
+
